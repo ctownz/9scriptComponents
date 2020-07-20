@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gage UI Input Component</title>
+
+
+<style>
+*:focus {
+    outline: 0;
+}
+</style>
+</head>
+<script src="g-input.js"></script>
+<p>Gage UI, Input Component</p>
+
+<form style="border:2px solid #bdbdbd;">
+    <g-input label="Name" type="text" autocomplete="address" name="address" value=""tabindex="2" required></g-input>
+
+</form>
+<g-input type="text" radius="0" autocomplete="address" name="address" value=""tabindex="2" required></g-input>
+<body style="outline:none;">
+  <br/>
+  <span style="background-color:blue;-webkit-box-shadow: none;box-shadow:none;outline:none !important;">
+    vvvxxx<br/>
+    <g-input type="email" radius="0" autocomplete="email" name="email" value=""tabindex="2" required></g-input>
+
+  </span>
+  <br/>
+  <span style="background-color: transparent;">
+    <input style="box-shadow: none;outline:none;" type="text" name="name" id="author" value="" size="22" tabindex="1" required />
+    <button>Click me, pally</button>
+  </span>
+
+   <div (click)="alert('h')" style="background-color: gold;">
+    <svg width="24px" height="24px"
+      style="padding: 1px 1px;background-color:transparent;overflow: hidden;vertical-align: middle;">
+      <g transform="translate(0,0) scale(.055)">
+        <path [attr.stroke]="'#bdbdbd'" [attr.fill]="'black'"
+          d="M 25.912109 11.03125 L 12.568359 24.455078 L 110.39844 122.96289 L 12.582031 221.45703 L 25.912109 234.89258 L 123.73242 136.38867 L 221.54688 234.88086 L 234.89062 221.45703 L 137.07031 122.95898 L 234.89062 24.455078 L 221.55859 11.03125 L 123.73633 109.5332 L 25.912109 11.03125 z "
+          style="fill-opacity:1;fill-rule:nonzero;stroke-width:24" />
+      </g>
+    </svg>
+    </div>
+  </div>
+  </div>
+  <form>
+			
+    <p>
+    <input style="box-shadow: none;outline:none;" type="text" name="author" id="author" value="" size="22" tabindex="1" required />
+    <label for="author">Name (required)</label>
+    </p>
+
+    
+
+    <p>
+    <input style="background-color:transparent !important" type="text" name="url" id="url" value="" size="22" tabindex="3" />
+    <label for="url">Website</label>
+    </p>
+
+  
+  <div style="display:none;margin-top:5px;" id="comment_reply_info">
+    <b>Reply to "<span id="comment_reply_name"></span>" comment: </b>
+    <a onclick="reset_comment_reply();" href="#respond">Cancel</a>
+  </div>
+
+<p><textarea name="comment" id="comment" rows="6" tabindex="4" required></textarea></p>
+
+  
+          <p>
+      <div class="g-recaptcha" data-sitekey="6LcsCDcUAAAAADoIuzZhzWx946Ii7Yfb-F2kUfk8" data-callback="recaptchaCallback"></div>
+<script>
+      window.addEventListener("load", function(){ document.querySelector("#submit").disabled = true; }, false);
+      function recaptchaCallback(){ document.querySelector("#submit").disabled = false; }
+    </script>				</p>
+  
+
+<input type="hidden" name="mode" id="sb_mode" value="" />
+<script type="text/javascript">document.getElementById("sb_mode").value="1";</script> 
+</form>
+
+
+   <form>
+
+<form  method="post" id="commentform">
+
+			
+  <p style="color:green;outline:none !important;">
+    <div style="background-color: blueviolet;margin:0px;color:rgb(8, 252, 130);">Break
+      <g-input type="text" radius="4px" name="city" value="" tabindex="1" required></g-input>
+    </div>
+    <g-input style="outline:none !important;"  id="name" type="text" color="green" radius="0" autocomplete="name" name="name" value="" tabindex="1" required></g-input>
+    <g-input type="text" radius="0" autocomplete="address" name="address" value=""tabindex="2" required></g-input>
+    <g-input type="email" radius="0" autocomplete="email" name="email" value=""tabindex="2" required></g-input>
+
+  </p>
+
+</form>
+
+    <button onclick="doSomething(this.id)">Click me</button>
+  </form>
+  
+    <script>
+var list = document.getElementsByTagName("g-input")[0];
+  var input = document.querySelector("input");
+  var img = document.getElementsByTagName("g-input")[0];
+  
+  img.onchange = (evt) => {
+    //img.setAttribute("value", evt.target.value);
+   
+    //alert(img.getAttribute("value"));
+    //alert(img.getAttribute("id"));
+    //list.setAttribute("filter", evt.target.value);
+  }
+    function doSomething(id) {
+      var img = document.getElementsByTagName("g-input")[0];
+       alert(img.getAttribute("value"));
+     
+    }
+      function myFunction() {
+       // var element = document.getElementsByTagName('g-input');
+    if(element){
+      //element.setAttribute("settings", JSON.stringify(myConfig));
+     // alert('bob');
+     // alert(element.item[0].value);
+    }
+        //document.getElementById("demo").innerHTML = "Hello World";
+       // alert(document.getElementById('bob').value);
+        ///document.getElementById("bob").value = "Johnny Bravo";
+      }
+
+  const component = document.querySelector('g-input');
+  component.addEventListener('save', (event) => {
+    alert(event.save);
+  })
+
+      </script>
+</body>
+</html>
