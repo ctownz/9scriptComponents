@@ -1,124 +1,210 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Gage UI Input Component</title>
-        <style>
-            .center {
-                margin: auto;
-                width: 50%;
-                border: 1.5px solid #C6C9E8;
-                border-radius: 3.5px;
-                padding: 10px;
-                padding-left: 30px;
-                padding-right: 30px;
-            }
-            td,
-            th {
-                background-color: white;
-                border: 1px solid #999;
-                padding: 0.5rem;
-            }
-       
-</style>    
+
+<head>
+    <title>Gage UI Input Component</title>
+    <style>
+        .center {
+            margin: auto;
+            width: 50%;
+            border: 1.5px solid #C6C9E8;
+            border-radius: 3.5px;
+            padding: 10px;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+
+        button {
+            border: 1.5px solid #C6C9E8;
+            border-radius: 3px;
+            background-color: #FE2D07;
+            padding: 5px;
+            color: whitesmoke;
+            font-weight: bold;
+            font-size: medium;
+            width: 100%;
+        }
+
+        td,
+        th {
+            background-color: white;
+            border: 1px solid #999;
+            padding: 0.5rem;
+        }
+
+        textarea {
+            background-color: #eceff1;
+            border: 1.5px solid #fafafa;
+            color: #546e7a;
+            font-size: 12pt;
+            padding: 0rem;
+            white-space: nowrap;
+
+        }
+
+        b {
+            padding-right: 1rem;
+        }
+
+        *:focus {
+            outline: #C6C9E8;
+        }
+    </style>
+    <script src="g-input.js"></script>
+</head>
+
 <body>
     <form>
-        <div style="margin: auto;width:50%;padding: 10px;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;color:#485063;font-size:14pt;">
+        <div
+            style="margin: auto;width:50%;padding: 10px;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;color:#485063;font-size:14pt;">
             <p style="padding:10px;font-weight: bold;background-color: #90a4ae;color:#fff;">Gage UI, Input Component</p>
+
             <div class="center">
-                <g-input label="Name" type="text" name="name" value=""></g-input>
-                <g-input direction="validate" label="Email" type="email" name="email" value=""></g-input>
-                <g-input label="Phone" type="tel" name="Phone" value=""></g-input>
-                <g-input type="date" direction="validate" label="Date of Birth" type="date" value="1980-12-25" name="DOB"></g-input>
-                <g-input width="88%" type="date" direction="validate" label="Date of Birth" type="date" name="DOB"></g-input>
-              
+                <g-input name="name" placeholder="Name" label="Name" type="text" value="" req=true></g-input>
+
+                <g-input direction="validate" label="Email" type="email" name="email" value="" req=true></g-input>
+                <g-input label="Phone" type="tel" name="Phone" value="" req=true></g-input>
+                <g-input type="date" direction="validate" label="Date of Birth" type="date" value="1980-12-25"
+                    name="DOB" req=true></g-input>
+
+                <button name="data" onclick="getData()">save</button>
+
+                </button>
             </div>
+            <p>Put the npm here...<textarea class="center" style="width:50%;height:auto;min-height:25px;" rows="1"
+                    cols="50" readonly>
+                <script src="g-input.js"></script></textarea></p>
+            <p>Output: add event listener, 'out' (see javascript example below)</p>
+            <div class="center" id="outPut" style="width:90%;font-size: 12pt;display:none;">
+                <div id='george'></div>
+            </div>
+            <p>Html</p>
+
+            <textarea class="center" style="width:90%;height:auto;min-height:200px;">
+
+<g-input label="Name" name="name" req=true></g-input>
+<g-input type="email" label="Email" direction="validate"
+    name="email" req=true></g-input>
+<g-input type="tel" label="Phone" direction="validate"
+    name="Phone" req=true></g-input>
+<g-input type="date" label="Date of Birth"  direction="validate"
+    value="1980-12-25" name="DOB" req=true></g-input>
+            </textarea>
+
+            <p>Javascript</p>
+
+            <textarea class="center" style="width:90%;height:auto;min-height:150px;">
+
+var foo = { name: "", email: "", phone: "", dob: "" };
+    ...
+fname.addEventListener('out', (event) => {
+    let msg = JSON.stringify(event.detail);
+    foo.fname = JSON.parse(msg);
+})...
+            </textarea>
+
+
             <p>Properties, Notes, Info</p>
             <p>
             <table style="background-color:#C6C9E8;">
                 <tr>
-                    <td>Component width is 100% of it's container</td>
+                    <td><b>Value: </b> value="John Doe" or for dates, value="1980-12-25"</td>
                 </tr>
                 <tr>
-                    <td>Add direction="validate" to show error messages. Messages are not customizable</td>
+                    <td><b>Placeholder: </b> placeholder="Name"</td>
                 </tr>
                 <tr>
-                    <td>Size: size="small" or size="medium" or size="large"</td>
-                </tr>
-                <tr>
-                    <td>To change the background color: bg="red"</td>
-                </tr>
-                <tr>
-                    <td>Text color is inherited.</td>
-                </tr>
-                <tr>
-                    <td>Border: border="4px solid red"</td>
-                </tr>
-                <tr>
-                    <td>border-radius: radius="1.5px"</td>
-                </tr>
-                <tr>
-                    <td>Value: value="John Doe" or for dates, value="1980-12-25"</td>
-                </tr>
-                <tr>
-                    <td>id and name: id="street", name="address2"</td>
-                </tr>
-                <tr>
-                    <td>Label: If you want to add a label, label="Email". The label appears above the input and is left
+                    <td><b>Label: </b> If you want to add a label, label="Email". The label appears above the input and
+                        is left
                         aligned.</td>
                 </tr>
                 <tr>
-                    <td>To eliminate the 
-                        *:focus {
-                            outline: 0;
-                        }
-                    </td>
+                    <td><b>Error messaging: </b>Add direction="validate" to show error messages. Messages are not
+                        customizable</td>
+                </tr>
+                <tr>
+                    <td><b>Width: </b>Component width is 100% of it's container</td>
+                </tr>
+                <tr>
+                    <td><b>Size: </b> size="small" or size="medium" or size="large"</td>
+                </tr>
+                <tr>
+                    <td><b>Background color: </b>To change the background color: bg="red"</td>
+                </tr>
+                <tr>
+                    <td><b>color: </b>Text color is inherited.</td>
+                </tr>
+                <tr>
+                    <td><b>Border: </b> border="4px solid red"</td>
+                </tr>
+                <tr>
+                    <td><b>Border radius: </b> radius="1.5px"</td>
+                </tr>
+                <tr>
+                    <td><b>id, name: </b> id="street", name="address2"</td>
+                </tr>
+
+                <tr>
+                    <td><b>Required fields: </b> To add an <b style="color:red;font-size: large;padding-right:0;">*</b>,
+                        req=true.</td>
                 </tr>
             </table>
 
             <p>
         </div>
     </form>
-
-    <script src="g-input.js"></script>
- 
     <script>
+        var foo = { name: "", email: "", phone: "", dob: "1980-12-25" };
+        var fname = document.getElementsByTagName("g-input")[0];
+        var email = document.getElementsByTagName("g-input")[1];
+        var ph = document.getElementsByTagName("g-input")[2];
+        var dob = document.getElementsByTagName("g-input")[3];
 
-          var input = document.querySelector("input");
-          var ginputs = document.querySelector("g-input");
-          var xd = document.getElementsByTagName("g-input")[0];
-          var email = document.getElementsByTagName("g-input")[1];
-          var em = '';
-      
-    const component = document.getElementsByTagName("g-input")[0];
-    email.addEventListener('out', (event) => {
-            alert(event.detail);
+        fname.addEventListener('out', (event) => {
+            let msg = JSON.stringify(event.detail);
+            foo.fname = JSON.parse(msg);
         })
-  
-         // email.onchange = (evt) => {
-           // alert(evt.target.value);
-           //em = evt.target.value;
-            //var x = document.getElementById("myText").value;
+        email.addEventListener('out', (event) => {
+            let msg = JSON.stringify(event.detail);
+            foo.email = JSON.parse(msg);
+        })
+        ph.addEventListener('out', (event) => {
+            let msg = JSON.stringify(event.detail);
+            foo.phone = JSON.parse(msg);
+        })
+        dob.addEventListener('out', (event) => {
+            let msg = JSON.stringify(event.detail);
+            foo.dob = JSON.parse(msg);
+        })
+        function getData() {
+            var ty = document.getElementById('george');
+            var date = foo.dob;
+            var parts = date.split('-');
+            parts[1] -= 1;
+            var d = new Date(Date.UTC.apply(null, parts));
+            options = {
+                month: "long",
+                weekday: "long",
+                year: "numeric",
+                day: "numeric",
+                timeZone: 'UTC'
+            };
+            var dply = document.getElementById("outPut");
 
-           //alert(name.getAttribute('value'));
-           //var x = document.getElementsByTagName("g-input")[0].getAttribute("value");
-           //alert(xd.getAttribute("value"));
-         // } 
+            ty.innerHTML = 'Name: ' + foo.fname + ',  Email:  ' + foo.email + ',  Phone:  ' + foo.phone + ',  DOB:  ' + d.toLocaleDateString("en-us", options);
+            dply.style.display = 'block';
+            event.preventDefault();
+        }
 
-/*           xd.onchange = (evt) => {
-            evt.target.value = 'cvredq';
-           var x = document.getElementsByTagName("g-input")[0].getAttribute("value");
-           alert(xd.getAttribute("value"));
-          } */ 
+        function doSomething(id) {
+            var img = document.getElementsByTagName("g-input")[0];
+            alert(img.getAttribute("value"));
+
+        }
 
 
-            function doSomething(id) {
-              var img = document.getElementsByTagName("g-input")[0];
-               alert(img.getAttribute("value"));
-             
-            }
-     
 
-        
-              </script>
+    </script>
 </body>
+
 </html>
