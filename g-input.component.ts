@@ -26,7 +26,8 @@ export class GInputComponent implements OnInit {
   @Input() label: string;
   @Input() placeholder: string;
 
-  @Input() required: boolean = false;
+  @Input() required: boolean;
+  @Input() req: boolean;
   @Input() style: Style;
   @Input() color: string;
   @Input() iconLeft: string;
@@ -110,6 +111,7 @@ export class GInputComponent implements OnInit {
   brw = navigator.userAgent;
   _sE: boolean = false;
   _cid: string = '';
+  _r: string= 'req';
   ngOnInit() {
     if (this.type == undefined) { this.type = "text"; }
     if (this.start) {
@@ -118,15 +120,22 @@ export class GInputComponent implements OnInit {
         this._e = "block";
       }
       else{ this._e = "none";}
+      if(!this.req){this._r = 'not req';}
       if (this.theme != undefined && this.theme.indexOf('d') > -1) {
         this.light = false;
-        this.plC = '#f5f5f5';
+        this.plC = '#9e9e9e';
       }
       if (this.placeholder != undefined) {
-        this.color = 'gainsboro';
+/*         this.color = 'gainsboro';
+        this.plC = '#9e9e9e'; */
+        this.color = 'red';
+        this.plC = '#C0C0C0';
       }
       else {
-        this.color = 'inherit';
+/*         this.color = 'inherit';
+        this.plC = 'inherit'; */
+        this.color = 'green';
+        this.plC = '#C0C0C0';
       }
       if (this._value != undefined) {
         this.hasVal = true;
@@ -144,7 +153,7 @@ export class GInputComponent implements OnInit {
       if (this.color == undefined) { this.color = this.style.fontColor; }
 
       if (this.label != undefined) {
-        this._lbl = 'block';
+        this._lbl = 'inline-block';
       }
       else if (this.placeholder != undefined) {
         this.label = this.placeholder;
@@ -171,8 +180,8 @@ export class GInputComponent implements OnInit {
         this.clr = true;
         if (this._value != undefined) {
           if (this.b.indexOf('Edg/') > -1) {
-            this.dt2 = false;
-            this.dt3 = true;
+             this.dt2 = false;
+            this.dt3 = true; 
             this.dateFrom = this.convertDate(this.dateFrom);
           }
           else {
@@ -196,10 +205,11 @@ export class GInputComponent implements OnInit {
       }
       this.setIconSize(this.size);
 
+      // length and width
       if ((this.b.indexOf("Edg/") > -1 || this.b.indexOf("Net") > -1 ) && this._t.indexOf("date") > -1) {
-        this._w = this.width || "inherit";
+       this._w = this.width || '99%';
       }
-      else {this._w = this.width || '100%';}
+      else {this._w = this.width || '99%';}
 
       if (this.type == "date") {
         this._l = 8;
@@ -260,7 +270,7 @@ export class GInputComponent implements OnInit {
         this.top = "3.5px";
  
         if ((this.type.indexOf('date') > -1 || this._t.indexOf('date') > -1) && x.indexOf("Chrome") > -1) {     
-            this.padding = ".35rem .5rem .33rem .4rem";
+            this.padding = ".35rem 0rem .33rem .4rem";
         }
         else{
           this.padding = ".4rem .6rem .4rem .4rem";
@@ -305,16 +315,16 @@ export class GInputComponent implements OnInit {
     }
 
   }
-  debug = 1;
+
   reset() {
-    let ele = <HTMLInputElement>document.getElementById(this._id);
-    if(this._value == undefined){
-      ele.value = this.placeholder || "";
+    let e = <HTMLInputElement>document.getElementById(this._id);
+    if (e != null) {
+        e.value = this.placeholder || "";
     }
-    else {
-      ele.value = " ";
-    }
-    this.style2 = false; this.style1 = true;
+    // date
+    if(this._t.indexOf('date') > -1){ this.style2 = false; this.style1 = true; }
+    else{ this.style2 = false; this.style1 = true; } 
+    //this.style2 = false; this.style1 = true;
     this.hidden = false;
     this.dsply = 'block';
     let val = new KeyValuePair();
@@ -324,26 +334,27 @@ export class GInputComponent implements OnInit {
     this.inputValue.emit(val);
 
   }
-  trp = '12';
   onOut(){ 
     let el = <HTMLSpanElement>document.getElementById(this._cid);
-    this.trp = 'Out'; 
-    if(el == undefined){ this.trp = '331'; }
+    let e = <HTMLInputElement>document.getElementById(this._id);
     let non = "none"
     el.style.boxShadow = non;
+    this.out.emit(e.value);
     } 
     onIn(){ 
       let el = <HTMLSpanElement>document.getElementById(this._cid);
-      if(el == undefined){ this.trp = this._cid; } 
       let colour = "0 0 5px rgb(207,216,220,1)";
       el.style.boxShadow = colour;
-      this.trp = 'In'; 
-      } 
-  onKeydown(e: any) {
+    } 
+    onKeydown(e: any) {
     let ele = <HTMLInputElement>document.getElementById(this._id);
 
-    if (ele.value != this.placeholder) { this.style2 = true; this.style1 = false; }
-    
+  if (ele != null) {
+    if (ele.value != undefined && ele.value != this.placeholder) { this.style2 = true; this.style1 = false; }
+  }
+  if (ele != null) {
+    if (ele.value != undefined && ele.value != this.placeholder) { this.style2 = true; this.style1 = false; }
+  }
     if (this.length != undefined && ele.value.length > this.length) {
       event.preventDefault();
       return;
@@ -352,9 +363,16 @@ export class GInputComponent implements OnInit {
       this.allSet();
     }
     else {
-      if (ele.value == this.placeholder && !this.hasVal) {
+
+if(ele != null){
+  if (ele.value == this.placeholder && !this.hasVal) {
+    ele.value = "";
+  }
+}
+
+     /*  if (ele.value == this.placeholder && !this.hasVal) {
         ele.value = "";
-      }
+      } */
     }
   }
   isValidDate(dateString) {
@@ -367,13 +385,14 @@ export class GInputComponent implements OnInit {
   }
   onMouseDown(e: any) {
     let ele = <HTMLInputElement>document.getElementById(this._id);
+    if (ele != null) {
+      if (ele.value == this.placeholder && !this.hasVal) {
 
-    if (ele.value == this.placeholder && !this.hasVal) {
-      ele.value = "";
-      ele.selectionStart = 1;
+        ele.value = "";
+        ele.selectionStart = 1;
+      }
+      ele.style.color = 'inherit';
     }
-    ele.style.color = 'inherit';
-   
   }
   onChange() {  
    let ele = <HTMLInputElement>document.getElementById(this._id);
@@ -440,11 +459,13 @@ export class GInputComponent implements OnInit {
         }
       }
       else if (this._t == "date") {
-        if (ele.value.length > 10) {
+        // debug
+/*         if (ele.value.length > 10) {
           this.showErr("No. Please enter a valid date.");
           return;
         }
-          else if (ele.value.length == 10) {
+          else */ 
+      /*   if (ele.value.length == 10) {
           let b = navigator.userAgent;
           let valid = true;
           let m = 0; let d = 0; let y = 0;
@@ -481,7 +502,7 @@ export class GInputComponent implements OnInit {
               this.cl();
             }
           }
-        }
+        } */
       }
     }
   }
@@ -508,6 +529,7 @@ export class GInputComponent implements OnInit {
     this.inputValue.emit(val);
   }
   public save() {
+    this.out.emit('this is bob');
     let ele = <HTMLInputElement>document.getElementById(this._id);
     let valued = true;
     var result = ele.value.replace(/ /g, "");
@@ -522,7 +544,8 @@ export class GInputComponent implements OnInit {
     if ((this.placeholder != undefined && ele.value == this.placeholder) || (result.length == 0)) {
       valued = false;
     }
-    if ((this.required && ele.value == '') || (this.required && !valued)) {
+    //if ((this.required && ele.value == '') || (this.required && !valued)) {
+    if ((this.req && ele.value == '') || (this.req && !valued)) {
       this.onErr = true;
       this.showErr("This field is required.");
     }
@@ -534,7 +557,7 @@ export class GInputComponent implements OnInit {
         val.value = "";
       }
     }
-    this.out.emit('this is bob');
+    //this.out.emit('this is bob');
   }
   makeid() {
     var text = "";
