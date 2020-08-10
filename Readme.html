@@ -31,7 +31,12 @@
             border: 1px solid #999;
             padding: 0.5rem;
         }
-
+        pre,code {
+    margin-top: 0px;
+    font-family: inherit;
+    font-size: 1em;
+    padding-top: 3rem;
+  }
         textarea {
             background-color: #eceff1;
             border: 1.5px solid #fafafa;
@@ -41,7 +46,48 @@
             white-space: nowrap;
 
         }
-
+        textarea#styled {
+    font-size:12pt;
+    margin:0px;
+    text-align: left;
+    width: 350px;
+    height: auto;
+    border: 1.5px solid #cccccc;
+    padding: 0px;
+    font-family: Tahoma, sans-serif;
+    background-color: #fff;
+    border-style: none;
+    background-position: bottom right;
+    background-repeat: no-repeat;
+  }
+  textarea {
+    background-color: transparent;
+    white-space: pre;
+    pointer-events: none;
+    font-size:12pt;
+    color:#607d8b;
+    line-height: 30px;
+    font-family: inherit;
+    font-size: inherit;
+    color:#607d8b;
+    max-width:520px;
+    padding-top:1rem;
+    margin:0px;
+    border:0px;
+    border-style:none;
+  }
+  textarea:active {
+    border-style: none;
+    outline: 0;
+  }
+  textarea:focus {
+    border-style: none;
+    outline: 0;
+  }
+  textarea:hover {
+    outline: 0;
+  }
+  
         b {
             padding-right: 1rem;
         }
@@ -57,7 +103,7 @@
     <form>
         <div
             style="margin: auto;width:50%;padding: 10px;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;color:#485063;font-size:14pt;">
-            <p style="padding:10px;font-weight: bold;background-color: #90a4ae;color:#fff;">Gage UI, Input Component</p>
+            <p style="padding:10px;font-weight: bold;color:#90a4ae;">Gage UI, Input Component</p>
 
             <div class="center">
                 <g-input name="name" placeholder="Name" label="Name" type="text" value="" req=true></g-input>
@@ -71,17 +117,27 @@
 
                 </button>
             </div>
-            <p>Put the npm here...<textarea class="center" style="width:50%;height:auto;min-height:25px;" rows="1"
+            <p>Put the npm here...<br/>
+                <textarea class="center" style="width:50%;height:auto;min-height:25px;font-size: 12pt;background-color:whitesmoke;overflow-x: hidden;"" rows="1"
                     cols="50" readonly>
-                <script src="g-input.js"></script></textarea></p>
+    <script src="g-input.js"></script></textarea></p>
             <p>Output: add event listener, 'out' (see javascript example below)</p>
             <div class="center" id="outPut" style="width:90%;font-size: 12pt;display:none;">
                 <div id='george'></div>
             </div>
+            
             <p>Html</p>
-
+            <textarea class="center" rows="8" cols="120"  style="font-size: 12pt;width:100%;background-color:whitesmoke;overflow-x: hidden;">
+    <g-input label="Name" name="name" req=true></g-input>
+    <g-input type="email" label="Email" direction="validate"
+        name="email" req=true></g-input>
+    <g-input type="tel" label="Phone" direction="validate"
+        name="Phone" req=true></g-input>
+    <g-input type="date" label="Date of Birth"  direction="validate"
+        value="1980-12-25" name="DOB" req=true></g-input>
+            </textarea>
+<!--         <pre>
             <textarea class="center" style="width:90%;height:auto;min-height:200px;">
-
 <g-input label="Name" name="name" req=true></g-input>
 <g-input type="email" label="Email" direction="validate"
     name="email" req=true></g-input>
@@ -89,18 +145,19 @@
     name="Phone" req=true></g-input>
 <g-input type="date" label="Date of Birth"  direction="validate"
     value="1980-12-25" name="DOB" req=true></g-input>
-            </textarea>
 
+            </textarea>
+        </pre> -->
             <p>Javascript</p>
 
-            <textarea class="center" style="width:90%;height:auto;min-height:150px;">
+            <textarea class="center" rows="8" cols="120"  style="font-size: 12pt;width:100%;background-color:whitesmoke;overflow-x: hidden;">
 
-var foo = { name: "", email: "", phone: "", dob: "" };
+    var foo = { name: "", email: "", phone: "", dob: "" };
     ...
-fname.addEventListener('out', (event) => {
-    let msg = JSON.stringify(event.detail);
-    foo.fname = JSON.parse(msg);
-})...
+    fname.addEventListener('out', (event) => {
+        let msg = JSON.stringify(event.detail);
+        foo.fname = JSON.parse(msg);
+    })...
             </textarea>
 
 
@@ -178,6 +235,11 @@ fname.addEventListener('out', (event) => {
         })
         function getData() {
             var ty = document.getElementById('george');
+            //  var xs = document.getElementsByTagName("g-input")[0];
+            //  var list = document.getElementsByTagName("div")[0];
+            //alert(document.getElementsByTagName("g-input")[3].getAttribute('value'));
+            //   document.getElementsByTagName("g-input")[0].setAttribute("value", "democlass");
+            //   ty.innerHTML = em;
             var date = foo.dob;
             var parts = date.split('-');
             parts[1] -= 1;
